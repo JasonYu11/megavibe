@@ -1,0 +1,35 @@
+name: Idea
+description: Propose a new Megavibe idea
+title: "[Idea]: "
+labels: ["idea"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What is the idea?
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why it matters
+      description: Who needs this and why?
+    validations:
+      required: true
+  - type: textarea
+    id: agent-approach
+    attributes:
+      label: Agent approach
+      description: How could agents help build or automate it?
+  - type: textarea
+    id: output
+    attributes:
+      label: Expected output
+      description: What should exist after the first useful experiment?
+  - type: textarea
+    id: next-step
+    attributes:
+      label: Next step
+      description: What is the smallest useful test?
+

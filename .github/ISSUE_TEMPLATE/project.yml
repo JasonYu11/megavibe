@@ -1,0 +1,45 @@
+name: Project
+description: Start or track an active project
+title: "[Project]: "
+labels: ["project"]
+body:
+  - type: input
+    id: owner
+    attributes:
+      label: Owner
+      description: Who is responsible for moving this forward?
+  - type: dropdown
+    id: status
+    attributes:
+      label: Status
+      options:
+        - Idea
+        - Building
+        - Testing
+        - Released
+        - Paused
+    validations:
+      required: true
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What are we trying to build?
+    validations:
+      required: true
+  - type: textarea
+    id: progress
+    attributes:
+      label: Current progress
+      description: What works now?
+  - type: textarea
+    id: blockers
+    attributes:
+      label: Blockers
+      description: What is stuck?
+  - type: textarea
+    id: next
+    attributes:
+      label: Next steps
+      description: The next 1-3 concrete actions.
+

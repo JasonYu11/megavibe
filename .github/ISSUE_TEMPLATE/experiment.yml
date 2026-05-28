@@ -1,0 +1,28 @@
+name: Experiment
+description: Record an agent experiment
+title: "[Experiment]: "
+labels: ["experiment"]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: What are you trying to learn?
+    validations:
+      required: true
+  - type: textarea
+    id: setup
+    attributes:
+      label: Setup
+      description: Models, tools, prompts, data, repo, environment.
+  - type: textarea
+    id: result
+    attributes:
+      label: Result
+      description: What happened?
+  - type: textarea
+    id: lesson
+    attributes:
+      label: Lesson
+      description: What should others reuse or avoid?
+
