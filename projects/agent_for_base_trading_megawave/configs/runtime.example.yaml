@@ -1,0 +1,36 @@
+app:
+  name: agent_for_base_trading_megawave
+  environment: local
+  execution_mode: dry_run
+
+storage:
+  sqlite_path: var/orders.sqlite
+
+chains:
+  base:
+    namespace: evm
+    chain_id: 8453
+    chain_name: base
+    rpc_url_ref: ENV:BASE_RPC_URL
+
+wallets:
+  base_main_test:
+    chain: base
+    address: "0x0000000000000000000000000000000000000000"
+    signer_ref: KEYCHAIN:base_main_test:AGENT_WALLET_PRIVATE_KEY_BASE_TEST1
+
+providers:
+  debank:
+    base_url: https://pro-openapi.debank.com/v1
+    access_key_ref: ENV:DEBANK_ACCESS_KEY
+  okx:
+    base_url: https://web3.okx.com
+    api_key_ref: ENV:OKX_API_KEY
+    secret_key_ref: ENV:OKX_SECRET_KEY
+    passphrase_ref: ENV:OKX_API_PASSPHRASE
+    project_id_ref: ENV:OKX_PROJECT_ID
+
+telegram:
+  bot_token_ref: ENV:TELEGRAM_BOT_TOKEN
+  default_chat_id: ""
+  poll_interval_seconds: 5

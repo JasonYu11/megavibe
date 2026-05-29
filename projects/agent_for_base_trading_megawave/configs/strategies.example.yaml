@@ -1,0 +1,24 @@
+copy_trade:
+  enabled: false
+  poll_interval_seconds: 30
+  target_addresses: []
+  max_delay_seconds: 300
+  buy_ratio: 0.3
+  sell_ratio: 0.5
+  max_copy_trade_usd: 3
+
+conditional_order:
+  enabled: true
+  default_price_source: debank
+  poll_interval_seconds: 30
+  default_expire_hours: 24
+  require_confirmation_on_create: false
+  require_confirmation_on_trigger: true
+
+smart_money_cash_flow:
+  enabled: false
+  windows:
+    - 15m
+    - 1h
+    - 4h
+  min_net_inflow_usd: 50000

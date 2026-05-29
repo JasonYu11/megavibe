@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local secrets and runtime config
+.env
+.env.*
+!.env.example
+configs/runtime.yaml
+configs/risk_policy.yaml
+configs/strategies.yaml
+*.sqlite
+*.sqlite3
+*.db
+
+# Logs and local outputs
+logs/
+*.log
+tmp/

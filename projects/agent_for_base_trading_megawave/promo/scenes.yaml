@@ -1,0 +1,43 @@
+project: megawave-web-promo
+target_url: "http://127.0.0.1:8792"
+mode:
+  execution_mode: dry_run
+  live_enabled: false
+token:
+  chain: Base
+  symbol: GITLAWB
+  contract: "0x5F980Dcfc4c0fa3911554cf5ab288ed0eb13DBa3"
+  usd_amount: "0.1"
+market_command: "/buy 0x5F980Dcfc4c0fa3911554cf5ab288ed0eb13DBa3 0.1"
+limit_command: "/limit_buy 0x5F980Dcfc4c0fa3911554cf5ab288ed0eb13DBa3 0.1 at 0.0001"
+natural_language: "用 0.1U 买入 0x5F980Dcfc4c0fa3911554cf5ab288ed0eb13DBa3"
+scenes:
+  - id: overview
+    seconds: 6
+    title: 开场总览
+    subtitle: "从命令到自然语言，统一管理 Base 链交易流程。"
+  - id: market_order
+    seconds: 12
+    title: 市价单表单
+    subtitle: "市价单从表单生成标准命令，进入统一交易管线。"
+  - id: review_and_confirm
+    seconds: 10
+    title: 待确认与风控
+    subtitle: "报价、风控、待确认，执行前保留人工决策。"
+  - id: limit_order
+    seconds: 12
+    title: 限价单表单
+    subtitle: "限价单由本地 watcher 监控价格，到价后生成市价单。"
+  - id: natural_language
+    seconds: 12
+    title: 自然语言解析
+    subtitle: "自然语言先生成命令预览，确认后才进入交易流程。"
+  - id: orders
+    seconds: 12
+    title: 订单和历史
+    subtitle: "订单状态、历史记录、链上链接统一沉淀。"
+  - id: copy
+    seconds: 8
+    title: 跟单页面快速露出
+    subtitle: "跟单管理已接入同一控制台，可独立配置与追踪。"
+

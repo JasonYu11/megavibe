@@ -1,0 +1,29 @@
+risk:
+  max_single_trade_usd: 5
+  max_daily_trade_usd: 20
+  max_slippage_percent: 1.0
+  max_price_impact_percent: 3.0
+  copy_trade_max_price_impact_percent: 7.0
+  allow_honeypot: false
+  max_buy_tax_percent: 5.0
+  max_sell_tax_percent: 5.0
+  require_confirmation_for_all: true
+  require_confirmation_for_natural_language: true
+
+tokens:
+  allow_unknown_tokens: true
+  allowed_tokens:
+    - symbol: ETH
+      chain: base
+      address: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
+    - symbol: USDC
+      chain: base
+      address: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
+    - symbol: WETH
+      chain: base
+      address: "0x4200000000000000000000000000000000000006"
+    - symbol: VIRTUAL
+      chain: base
+      address: "0x0b3e328455c4059eeb9e3f84b5543f74e24e7e1b"
+  blocked_tokens: []
+  blocked_contracts: []

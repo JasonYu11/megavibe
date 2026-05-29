@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Megawave Trading Dashboard</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg class="brand-logo" viewBox="0 0 64 64" role="img" aria-label="Megawave">
+            <defs>
+              <linearGradient id="logo-aqua" x1="14" y1="18" x2="51" y2="51" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#e8fbff" />
+                <stop offset="0.55" stop-color="#58e7f0" />
+                <stop offset="1" stop-color="#00bdd4" />
+              </linearGradient>
+              <linearGradient id="logo-ice" x1="13" y1="9" x2="48" y2="35" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#ffffff" />
+                <stop offset="1" stop-color="#b9f3ff" />
+              </linearGradient>
+            </defs>
+            <path d="M12 30c1.2-11.4 9.7-20 20-20s18.8 8.6 20 20h-9.4c-2-6.7-5.6-10.3-10.6-10.3S23.4 23.3 21.4 30H12Z" fill="url(#logo-ice)" />
+            <path d="M12 33.7c6.4 3.2 11.4 2.8 15-1.2 3.5-3.9 6.9-4.2 10.3-0.8 4.1 4.1 8.9 4.7 14.7 1.8v6.6c-6.1 2.6-11.5 2-16-1.9-3.2-2.7-6.1-2.5-8.9 0.4-4.2 4.4-9.3 4.9-15.1 1.6v-6.5Z" fill="url(#logo-aqua)" />
+            <path d="M15.5 43.4c5.8 2.3 10.6 1.6 14.5-2 1.5-1.4 3-1.5 4.7-0.2 4.5 3.5 9.1 4.3 13.8 2.4v5.7c-5.3 1.8-10.4 1.1-15.2-2.2-1.2-0.8-2.3-0.7-3.5 0.2-4.5 3.4-9.3 4.1-14.3 2.1v-6Z" fill="url(#logo-aqua)" opacity="0.92" />
+            <path d="M21 52.2c4.1 1.4 7.7 0.9 10.8-1.4 3.1 2.3 6.7 2.8 10.8 1.4-2.4 2.7-6 4.4-10.8 5.1-4.8-0.7-8.4-2.4-10.8-5.1Z" fill="url(#logo-aqua)" />
+            <circle cx="32" cy="14" r="3.4" fill="#e9fbff" />
+            <circle cx="23.5" cy="20.8" r="1.9" fill="#dff8ff" />
+            <circle cx="40.5" cy="20.8" r="1.9" fill="#dff8ff" />
+            <circle cx="32" cy="29.2" r="3.3" fill="#c9f8ff" />
+          </svg>
+        </div>
+        <div>
+          <h1>Megawave</h1>
+          <p>Trading Agent</p>
+        </div>
+      </div>
+      <nav>
+        <button data-view="overview" class="active">总览</button>
+        <button data-view="trade">交易指令</button>
+        <button data-view="orders">订单</button>
+        <button data-view="copy">跟单</button>
+        <button data-view="positions">仓位</button>
+      </nav>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div>
+          <h2 id="page-title">总览</h2>
+          <p id="wallet-line">wallet: loading</p>
+        </div>
+        <div class="mode-pill" id="mode-pill">LOADING</div>
+      </header>
+
+      <section class="view active" id="view-overview">
+        <div class="metrics" id="metrics"></div>
+        <section class="band">
+          <div class="section-head">
+            <h3>运行参数</h3>
+            <span>修改后下一轮调度生效</span>
+          </div>
+          <form id="settings-form" class="settings-form">
+            <label>
+              <span>限价单价格更新时间</span>
+              <input name="conditional_watcher_interval_seconds" inputmode="numeric" />
+            </label>
+            <label>
+              <span>跟单 API 查询更新时间</span>
+              <input name="copy_watcher_interval_seconds" inputmode="numeric" />
+            </label>
+            <button type="submit">保存参数</button>
+          </form>
+          <div id="settings-estimates" class="settings-estimates"></div>
+        </section>
+        <section class="band">
+          <div class="section-head">
+            <h3>最近订单</h3>
+            <button id="refresh-overview">刷新</button>
+          </div>
+          <div id="recent-orders" class="order-list"></div>
+        </section>
+      </section>
+
+      <section class="view" id="view-trade">
+        <section class="band command-surface">
+          <div class="section-head">
+            <h3>交易对话</h3>
+            <span>输入 `/` 开头会直接执行；其他输入会先生成“是 / 否”预览</span>
+          </div>
+          <div class="prompt-chips">
+            <button type="button" data-prompt="/help">命令说明</button>
+            <button type="button" data-prompt="/status">状态</button>
+            <button type="button" data-prompt="/balance">余额</button>
+            <button type="button" data-prompt="/orders">当前订单</button>
+            <button type="button" data-prompt="/history">历史订单</button>
+            <button type="button" data-prompt="/copy_status">跟单状态</button>
+          </div>
+          <div id="command-log" class="chat-log"></div>
+          <form id="command-form" class="smart-command-form">
+            <span id="command-input-mode" class="input-mode-pill">标准 / 自然语言</span>
+            <input id="command-input" autocomplete="off" placeholder="输入 /status，或直接说：查看状态" />
+            <button type="submit">发送</button>
+          </form>
+          <section class="manual-tool-pages">
+            <div class="manual-tool-head">
+              <strong>手动工具页</strong>
+              <span>需要精确填写时再切换</span>
+            </div>
+            <div class="tool-switcher" aria-label="交易工具页">
+              <button type="button" data-tool-panel="market">市价单</button>
+              <button type="button" data-tool-panel="limit">限价单</button>
+              <button type="button" data-tool-panel="quote">报价</button>
+              <button type="button" data-tool-panel="order">订单操作</button>
+            </div>
+          <div class="command-panels" id="command-panels">
+            <form id="market-form" class="tool-panel" data-tool-panel-page="market">
+              <div class="tool-panel-head">
+                <h4>市价单</h4>
+                <span>买入默认使用 USDC，卖出默认换成 USDC</span>
+              </div>
+              <div class="form-grid">
+                <label>
+                  <span>方向</span>
+                  <select name="side">
+                    <option value="buy">买入</option>
+                    <option value="sell">卖出</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Token 合约地址</span>
+                  <input name="token" placeholder="0x..." required />
+                </label>
+                <label>
+                  <span>数量</span>
+                  <input name="amount" inputmode="decimal" placeholder="0.01" required />
+                </label>
+                <label>
+                  <span>可选对手 Token</span>
+                  <input name="counter_token" placeholder="留空为 USDC" />
+                </label>
+              </div>
+              <button type="submit" class="primary">生成市价单</button>
+            </form>
+
+            <form id="limit-form" class="tool-panel" data-tool-panel-page="limit">
+              <div class="tool-panel-head">
+                <h4>限价单</h4>
+                <span>触发价按 USD 计价，到价后本地 watcher 自动执行市价单</span>
+              </div>
+              <div class="form-grid">
+                <label>
+                  <span>方向</span>
+                  <select name="side">
+                    <option value="limit_buy">限价买入</option>
+                    <option value="limit_sell">限价卖出</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Token 合约地址</span>
+                  <input name="token" placeholder="0x..." required />
+                </label>
+                <label>
+                  <span>数量</span>
+                  <input name="amount" inputmode="decimal" placeholder="0.01" required />
+                </label>
+                <label>
+                  <span>目标价格 USD</span>
+                  <input name="target_price" inputmode="decimal" placeholder="1.0" required />
+                </label>
+                <label>
+                  <span>可选对手 Token</span>
+                  <input name="counter_token" placeholder="留空为 USDC" />
+                </label>
+              </div>
+              <button type="submit" class="primary">创建限价单</button>
+            </form>
+
+            <form id="quote-form" class="tool-panel" data-tool-panel-page="quote">
+              <div class="tool-panel-head">
+                <h4>报价</h4>
+                <span>仅查询 OKX 路由，不创建订单</span>
+              </div>
+              <div class="form-grid">
+                <label>
+                  <span>支付 Token</span>
+                  <input name="token_in" placeholder="0x..." required />
+                </label>
+                <label>
+                  <span>获得 Token</span>
+                  <input name="token_out" placeholder="0x..." required />
+                </label>
+                <label>
+                  <span>支付数量</span>
+                  <input name="amount" inputmode="decimal" placeholder="0.01" required />
+                </label>
+              </div>
+              <button type="submit">查询报价</button>
+            </form>
+
+            <form id="order-command-form" class="tool-panel" data-tool-panel-page="order">
+              <div class="tool-panel-head">
+                <h4>订单操作</h4>
+                <span>查看、取消、确认或拒绝指定订单</span>
+              </div>
+              <div class="form-grid">
+                <label>
+                  <span>动作</span>
+                  <select name="action">
+                    <option value="order">查看订单</option>
+                    <option value="cancel">取消订单</option>
+                    <option value="confirm">确认订单</option>
+                    <option value="reject">拒绝订单</option>
+                  </select>
+                </label>
+                <label>
+                  <span>订单编号</span>
+                  <input name="order_id" placeholder="ord_... / cond_..." required />
+                </label>
+              </div>
+              <button type="submit">提交订单操作</button>
+            </form>
+          </div>
+          </section>
+        </section>
+      </section>
+
+      <section class="view" id="view-orders">
+        <section class="band">
+          <div class="section-head">
+            <h3>订单管理</h3>
+            <button id="refresh-orders">刷新</button>
+          </div>
+          <div id="orders-table" class="table"></div>
+        </section>
+      </section>
+
+      <section class="view" id="view-copy">
+        <section class="band">
+          <div class="section-head">
+            <h3>跟单指令</h3>
+            <span>与 Telegram 跟单命令保持一致</span>
+          </div>
+          <form id="copy-command-form" class="copy-command-form">
+            <label>
+              <span>动作</span>
+              <select name="action">
+                <option value="copy_add">添加并审核</option>
+                <option value="copy_confirm">确认启用</option>
+                <option value="copy_pause">暂停</option>
+                <option value="copy_resume">恢复</option>
+                <option value="copy_remove">删除</option>
+                <option value="copy_set">设置参数</option>
+              </select>
+            </label>
+            <label>
+              <span>跟单地址</span>
+              <input name="address" placeholder="0x..." required />
+            </label>
+            <label>
+              <span>跟单比例</span>
+              <input name="copy_ratio" placeholder="0.1" />
+            </label>
+            <label>
+              <span>最大单笔 USD</span>
+              <input name="max_copy_trade_usd" placeholder="0.01" />
+            </label>
+            <button type="submit">发送跟单指令</button>
+          </form>
+        </section>
+        <section class="band">
+          <div class="section-head">
+            <h3>添加跟单地址</h3>
+          </div>
+          <form id="copy-form" class="copy-form">
+            <input name="address" placeholder="0x..." />
+            <input name="copy_ratio" placeholder="跟单比例" value="0.1" />
+            <input name="max_copy_trade_usd" placeholder="单次最大 USD" value="0.01" />
+            <input name="max_age_seconds" placeholder="窗口秒数" value="300" />
+            <button type="submit">保存</button>
+          </form>
+        </section>
+        <section class="band">
+          <div class="section-head">
+            <h3>跟单地址</h3>
+            <button id="refresh-copy">刷新</button>
+          </div>
+          <div id="copy-targets" class="copy-grid"></div>
+        </section>
+        <section class="band">
+          <div class="section-head">
+            <h3>跟单事件</h3>
+          </div>
+          <div id="copy-events" class="event-list"></div>
+        </section>
+      </section>
+
+      <section class="view" id="view-positions">
+        <section class="band">
+          <div class="section-head">
+            <h3>跟单仓位</h3>
+            <button id="refresh-positions">刷新</button>
+          </div>
+          <div id="positions-table" class="table"></div>
+        </section>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

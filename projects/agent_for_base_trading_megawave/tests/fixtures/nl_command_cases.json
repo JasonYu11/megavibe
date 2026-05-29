@@ -1,0 +1,200 @@
+[
+  {
+    "id": "help_cn",
+    "text": "怎么使用这个机器人",
+    "mock_intent": {"status": "mapped", "intent": "help", "confidence": 0.95, "slots": {}, "summary": "查看帮助"},
+    "expected": {"status": "mapped", "command": "/help", "risk": "read_only"}
+  },
+  {
+    "id": "status_cn",
+    "text": "看一下系统现在是否正常",
+    "mock_intent": {"status": "mapped", "intent": "status", "confidence": 0.96, "slots": {}, "summary": "查看运行状态"},
+    "expected": {"status": "mapped", "command": "/status", "risk": "read_only"}
+  },
+  {
+    "id": "mode_cn",
+    "text": "现在是 dry run 还是 live",
+    "mock_intent": {"status": "mapped", "intent": "mode", "confidence": 0.94, "slots": {}, "summary": "查看执行模式"},
+    "expected": {"status": "mapped", "command": "/mode", "risk": "read_only"}
+  },
+  {
+    "id": "balance_cn",
+    "text": "查询一下钱包余额",
+    "mock_intent": {"status": "mapped", "intent": "balance", "confidence": 0.95, "slots": {}, "summary": "查看余额"},
+    "expected": {"status": "mapped", "command": "/balance", "risk": "read_only"}
+  },
+  {
+    "id": "orders_cn",
+    "text": "列出现在所有订单",
+    "mock_intent": {"status": "mapped", "intent": "orders", "confidence": 0.94, "slots": {}, "summary": "查看订单列表"},
+    "expected": {"status": "mapped", "command": "/orders", "risk": "read_only"}
+  },
+  {
+    "id": "history_cn",
+    "text": "看一下历史成交和订单记录",
+    "mock_intent": {"status": "mapped", "intent": "history", "confidence": 0.94, "slots": {}, "summary": "查看历史记录"},
+    "expected": {"status": "mapped", "command": "/history", "risk": "read_only"}
+  },
+  {
+    "id": "order_detail_cn",
+    "text": "帮我查 ord_abc123 这个订单",
+    "mock_intent": {"status": "mapped", "intent": "order", "confidence": 0.92, "slots": {"order_id": "ord_abc123"}, "summary": "查看订单详情"},
+    "expected": {"status": "mapped", "command": "/order ord_abc123", "risk": "read_only"}
+  },
+  {
+    "id": "copy_list_cn",
+    "text": "当前跟单地址有哪些",
+    "mock_intent": {"status": "mapped", "intent": "copy_list", "confidence": 0.92, "slots": {}, "summary": "查看跟单地址列表"},
+    "expected": {"status": "mapped", "command": "/copy_list", "risk": "read_only"}
+  },
+  {
+    "id": "copy_status_cn",
+    "text": "跟单模块运行状态怎么样",
+    "mock_intent": {"status": "mapped", "intent": "copy_status", "confidence": 0.92, "slots": {}, "summary": "查看跟单状态"},
+    "expected": {"status": "mapped", "command": "/copy_status", "risk": "read_only"}
+  },
+  {
+    "id": "quote_virtual_cn",
+    "text": "用 0.01 USDC 换 VIRTUAL 报价是多少",
+    "mock_intent": {"status": "mapped", "intent": "quote", "confidence": 0.93, "slots": {"token_in": "USDC", "token_out": "VIRTUAL", "amount": "0.01"}, "summary": "查询报价"},
+    "expected": {"status": "mapped", "command": "/quote 0x833589fcD6eDb6E08f4c7C32D4f71b54bdA02913 0x0b3e328455c4059eeb9e3f84b5543f74e24e7e1b 0.01", "risk": "quote"}
+  },
+  {
+    "id": "market_buy_virtual_cn",
+    "text": "帮我用 0.01U 买 virtual",
+    "mock_intent": {"status": "mapped", "intent": "buy", "confidence": 0.93, "slots": {"token_out": "VIRTUAL", "amount": "0.01", "token_in": "USDC"}, "summary": "市价买入 VIRTUAL"},
+    "expected": {"status": "mapped", "command": "/buy 0x0b3e328455c4059eeb9e3f84b5543f74e24e7e1b 0.01", "risk": "trade_draft"}
+  },
+  {
+    "id": "market_sell_virtual_cn",
+    "text": "卖出 2 个 VIRTUAL 换成 USDC",
+    "mock_intent": {"status": "mapped", "intent": "sell", "confidence": 0.93, "slots": {"token_in": "VIRTUAL", "amount": "2", "token_out": "USDC"}, "summary": "市价卖出 VIRTUAL"},
+    "expected": {"status": "mapped", "command": "/sell 0x0b3e328455c4059eeb9e3f84b5543f74e24e7e1b 2", "risk": "trade_draft"}
+  },
+  {
+    "id": "limit_buy_virtual_cn",
+    "text": "VIRTUAL 低于 1.2 的时候用 0.01U 买",
+    "mock_intent": {"status": "mapped", "intent": "limit_buy", "confidence": 0.91, "slots": {"token_out": "VIRTUAL", "amount": "0.01", "target_price": "1.2", "token_in": "USDC"}, "summary": "限价买入 VIRTUAL"},
+    "expected": {"status": "mapped", "command": "/limit_buy 0x0b3e328455c4059eeb9e3f84b5543f74e24e7e1b 0.01 at 1.2", "risk": "trade_draft"}
+  },
+  {
+    "id": "limit_sell_virtual_cn",
+    "text": "VIRTUAL 涨到 2.5 就卖 1 个",
+    "mock_intent": {"status": "mapped", "intent": "limit_sell", "confidence": 0.91, "slots": {"token_in": "VIRTUAL", "amount": "1", "target_price": "2.5", "token_out": "USDC"}, "summary": "限价卖出 VIRTUAL"},
+    "expected": {"status": "mapped", "command": "/limit_sell 0x0b3e328455c4059eeb9e3f84b5543f74e24e7e1b 1 at 2.5", "risk": "trade_draft"}
+  },
+  {
+    "id": "status_alive_cn",
+    "text": "机器人现在还活着吗",
+    "mock_intent": {"status": "mapped", "intent": "status", "confidence": 0.9, "slots": {}, "summary": "查看运行状态"},
+    "expected": {"status": "mapped", "command": "/status", "risk": "read_only"}
+  },
+  {
+    "id": "balance_wallet_money_cn",
+    "text": "钱包里现在还有多少钱",
+    "mock_intent": {"status": "mapped", "intent": "balance", "confidence": 0.9, "slots": {}, "summary": "查看钱包余额"},
+    "expected": {"status": "mapped", "command": "/balance", "risk": "read_only"}
+  },
+  {
+    "id": "orders_open_cn",
+    "text": "现在挂着哪些单子",
+    "mock_intent": {"status": "mapped", "intent": "orders", "confidence": 0.9, "slots": {}, "summary": "查看订单列表"},
+    "expected": {"status": "mapped", "command": "/orders", "risk": "read_only"}
+  },
+  {
+    "id": "history_recent_cn",
+    "text": "最近做过哪些交易",
+    "mock_intent": {"status": "mapped", "intent": "history", "confidence": 0.9, "slots": {}, "summary": "查看历史订单"},
+    "expected": {"status": "mapped", "command": "/history", "risk": "read_only"}
+  },
+  {
+    "id": "quote_usdc_to_virtual_phrase_cn",
+    "text": "看看 0.25u 换 VIRTUAL 大概能拿多少",
+    "mock_intent": {"status": "mapped", "intent": "quote", "confidence": 0.9, "slots": {"token_in": "USDC", "token_out": "VIRTUAL", "amount": "0.25"}, "summary": "查询报价"},
+    "expected": {"status": "mapped", "command": "/quote 0x833589fcD6eDb6E08f4c7C32D4f71b54bdA02913 0x0b3e328455c4059eeb9e3f84b5543f74e24e7e1b 0.25", "risk": "quote"}
+  },
+  {
+    "id": "market_buy_virtual_phrase_cn",
+    "text": "拿 0.02 usdc 买入 virtual",
+    "mock_intent": {"status": "mapped", "intent": "buy", "confidence": 0.91, "slots": {"token_out": "VIRTUAL", "amount": "0.02", "token_in": "USDC"}, "summary": "市价买入 VIRTUAL"},
+    "expected": {"status": "mapped", "command": "/buy 0x0b3e328455c4059eeb9e3f84b5543f74e24e7e1b 0.02", "risk": "trade_draft"}
+  },
+  {
+    "id": "market_sell_virtual_phrase_cn",
+    "text": "把 1.5 个 virtual 卖掉换成 U",
+    "mock_intent": {"status": "mapped", "intent": "sell", "confidence": 0.91, "slots": {"token_in": "VIRTUAL", "amount": "1.5", "token_out": "USDC"}, "summary": "市价卖出 VIRTUAL"},
+    "expected": {"status": "mapped", "command": "/sell 0x0b3e328455c4059eeb9e3f84b5543f74e24e7e1b 1.5", "risk": "trade_draft"}
+  },
+  {
+    "id": "market_buy_address_cn",
+    "text": "买 1 个 0x5f980dcfc4c0fa3911554cf5ab288ed0eb13dba3",
+    "mock_intent": {"status": "mapped", "intent": "buy", "confidence": 0.91, "slots": {"token_out": "0x5f980dcfc4c0fa3911554cf5ab288ed0eb13dba3", "amount": "1", "token_in": "USDC"}, "summary": "市价买入指定 token"},
+    "expected": {"status": "mapped", "command": "/buy 0x5f980dcfc4c0fa3911554cf5ab288ed0eb13dba3 1", "risk": "trade_draft"}
+  },
+  {
+    "id": "market_sell_address_cn",
+    "text": "卖 2 个 0x5f980dcfc4c0fa3911554cf5ab288ed0eb13dba3",
+    "mock_intent": {"status": "mapped", "intent": "sell", "confidence": 0.91, "slots": {"token_in": "0x5f980dcfc4c0fa3911554cf5ab288ed0eb13dba3", "amount": "2", "token_out": "USDC"}, "summary": "市价卖出指定 token"},
+    "expected": {"status": "mapped", "command": "/sell 0x5f980dcfc4c0fa3911554cf5ab288ed0eb13dba3 2", "risk": "trade_draft"}
+  },
+  {
+    "id": "limit_buy_virtual_drop_cn",
+    "text": "virtual 跌到 0.9 的时候买 0.03u",
+    "mock_intent": {"status": "mapped", "intent": "limit_buy", "confidence": 0.9, "slots": {"token_out": "VIRTUAL", "amount": "0.03", "target_price": "0.9", "token_in": "USDC"}, "summary": "限价买入 VIRTUAL"},
+    "expected": {"status": "mapped", "command": "/limit_buy 0x0b3e328455c4059eeb9e3f84b5543f74e24e7e1b 0.03 at 0.9", "risk": "trade_draft"}
+  },
+  {
+    "id": "limit_sell_virtual_above_cn",
+    "text": "virtual 高于 3.2 就卖 0.5 个",
+    "mock_intent": {"status": "mapped", "intent": "limit_sell", "confidence": 0.9, "slots": {"token_in": "VIRTUAL", "amount": "0.5", "target_price": "3.2", "token_out": "USDC"}, "summary": "限价卖出 VIRTUAL"},
+    "expected": {"status": "mapped", "command": "/limit_sell 0x0b3e328455c4059eeb9e3f84b5543f74e24e7e1b 0.5 at 3.2", "risk": "trade_draft"}
+  },
+  {
+    "id": "invalid_short_address_cn",
+    "text": "用 1U 买 0x123",
+    "mock_intent": {"status": "mapped", "intent": "buy", "confidence": 0.7, "slots": {"token_out": "0x123", "amount": "1", "token_in": "USDC"}, "summary": "地址长度不正确"},
+    "expected": {"status": "clarification_required"}
+  },
+  {
+    "id": "invalid_missing_0x_address_cn",
+    "text": "买 1 个 5f980dcfc4c0fa3911554cf5ab288ed0eb13dba3",
+    "mock_intent": {"status": "mapped", "intent": "buy", "confidence": 0.7, "slots": {"token_out": "5f980dcfc4c0fa3911554cf5ab288ed0eb13dba3", "amount": "1", "token_in": "USDC"}, "summary": "地址缺少 0x 前缀"},
+    "expected": {"status": "clarification_required"}
+  },
+  {
+    "id": "invalid_non_hex_address_cn",
+    "text": "买 1 个 0xzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz",
+    "mock_intent": {"status": "mapped", "intent": "buy", "confidence": 0.7, "slots": {"token_out": "0xzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz", "amount": "1", "token_in": "USDC"}, "summary": "地址包含非十六进制字符"},
+    "expected": {"status": "clarification_required"}
+  },
+  {
+    "id": "missing_buy_fields",
+    "text": "帮我买一点这个币",
+    "mock_intent": {"status": "clarification_required", "intent": "buy", "confidence": 0.72, "slots": {}, "missing_fields": ["token_out", "amount"], "summary": "缺少买入 token 和金额"},
+    "expected": {"status": "clarification_required", "missing_fields": ["token_out", "amount"]}
+  },
+  {
+    "id": "unknown_token",
+    "text": "用 0.01U 买一个没说清楚的币",
+    "mock_intent": {"status": "mapped", "intent": "buy", "confidence": 0.7, "slots": {"token_out": "这个币", "amount": "0.01"}, "summary": "币种不明确"},
+    "expected": {"status": "clarification_required"}
+  },
+  {
+    "id": "blocked_confirm_cn",
+    "text": "帮我确认 ord_123",
+    "mock_intent": {"status": "blocked_manual_only", "intent": "confirm", "confidence": 0.99, "slots": {"order_id": "ord_123"}, "summary": "确认订单"},
+    "expected": {"status": "blocked_manual_only"}
+  },
+  {
+    "id": "blocked_cancel_cn",
+    "text": "取消订单 cond_456",
+    "mock_intent": {"status": "blocked_manual_only", "intent": "cancel", "confidence": 0.99, "slots": {"order_id": "cond_456"}, "summary": "取消订单"},
+    "expected": {"status": "blocked_manual_only"}
+  },
+  {
+    "id": "blocked_copy_remove_cn",
+    "text": "删除这个跟单地址 0x138ab382c889add23de09a78fd7a75b9b4fe5c25",
+    "mock_intent": {"status": "blocked_manual_only", "intent": "copy_remove", "confidence": 0.99, "slots": {"address": "0x138ab382c889add23de09a78fd7a75b9b4fe5c25"}, "summary": "删除跟单地址"},
+    "expected": {"status": "blocked_manual_only"}
+  }
+]

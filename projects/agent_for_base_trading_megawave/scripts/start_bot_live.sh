@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+_ENV_RUN_LIVE_TRADE_TESTS_SET=0
+_ENV_CONFIRM_LIVE_TRADE_BASE_SET=0
+_ENV_CONFIRM_LIVE_LIMIT_TRADE_BASE_SET=0
+_ENV_CONFIRM_LIVE_COPY_TRADE_BASE_SET=0
+_ENV_LIVE_TRADE_USD_VALUE_SET=0
+_ENV_RUN_LIVE_TRADE_TESTS="${RUN_LIVE_TRADE_TESTS:-}"
+_ENV_CONFIRM_LIVE_TRADE_BASE="${CONFIRM_LIVE_TRADE_BASE:-}"
+_ENV_CONFIRM_LIVE_LIMIT_TRADE_BASE="${CONFIRM_LIVE_LIMIT_TRADE_BASE:-}"
+_ENV_CONFIRM_LIVE_COPY_TRADE_BASE="${CONFIRM_LIVE_COPY_TRADE_BASE:-}"
+_ENV_LIVE_TRADE_USD_VALUE="${LIVE_TRADE_USD_VALUE:-}"
+[[ -n "${RUN_LIVE_TRADE_TESTS+x}" ]] && _ENV_RUN_LIVE_TRADE_TESTS_SET=1
+[[ -n "${CONFIRM_LIVE_TRADE_BASE+x}" ]] && _ENV_CONFIRM_LIVE_TRADE_BASE_SET=1
+[[ -n "${CONFIRM_LIVE_LIMIT_TRADE_BASE+x}" ]] && _ENV_CONFIRM_LIVE_LIMIT_TRADE_BASE_SET=1
+[[ -n "${CONFIRM_LIVE_COPY_TRADE_BASE+x}" ]] && _ENV_CONFIRM_LIVE_COPY_TRADE_BASE_SET=1
+[[ -n "${LIVE_TRADE_USD_VALUE+x}" ]] && _ENV_LIVE_TRADE_USD_VALUE_SET=1
+
+set -a
+if [[ -f .env ]]; then
+  source .env
+fi
+set +a
+
+if [[ "$_ENV_RUN_LIVE_TRADE_TESTS_SET" == "1" ]]; then
+  RUN_LIVE_TRADE_TESTS="$_ENV_RUN_LIVE_TRADE_TESTS"
+fi
+if [[ "$_ENV_CONFIRM_LIVE_TRADE_BASE_SET" == "1" ]]; then
+  CONFIRM_LIVE_TRADE_BASE="$_ENV_CONFIRM_LIVE_TRADE_BASE"
+fi
+if [[ "$_ENV_CONFIRM_LIVE_LIMIT_TRADE_BASE_SET" == "1" ]]; then
+  CONFIRM_LIVE_LIMIT_TRADE_BASE="$_ENV_CONFIRM_LIVE_LIMIT_TRADE_BASE"
+fi
+if [[ "$_ENV_CONFIRM_LIVE_COPY_TRADE_BASE_SET" == "1" ]]; then
+  CONFIRM_LIVE_COPY_TRADE_BASE="$_ENV_CONFIRM_LIVE_COPY_TRADE_BASE"
+fi
+if [[ "$_ENV_LIVE_TRADE_USD_VALUE_SET" == "1" ]]; then
+  LIVE_TRADE_USD_VALUE="$_ENV_LIVE_TRADE_USD_VALUE"
+fi
+export RUN_LIVE_TRADE_TESTS CONFIRM_LIVE_TRADE_BASE CONFIRM_LIVE_LIMIT_TRADE_BASE CONFIRM_LIVE_COPY_TRADE_BASE LIVE_TRADE_USD_VALUE
+
+if [[ "${RUN_LIVE_TRADE_TESTS:-}" != "1" || "${CONFIRM_LIVE_TRADE_BASE:-}" != "YES" ]]; then
+  echo "Refusing live startup: set RUN_LIVE_TRADE_TESTS=1 and CONFIRM_LIVE_TRADE_BASE=YES." >&2
+  exit 2
+fi
+
+python - <<'PY'
+import os
+from decimal import Decimal
+value = Decimal(os.environ.get("LIVE_TRADE_USD_VALUE", "0.01"))
+if value <= 0 or value > Decimal("0.05"):
+    raise SystemExit("Refusing live startup: LIVE_TRADE_USD_VALUE must be > 0 and <= 0.05.")
+PY
+
+APP_EXECUTION_MODE=live \
+PYTHONDONTWRITEBYTECODE=1 \
+python -m app.run_bot \
+  --runtime-config "${RUNTIME_CONFIG:-configs/runtime.local.yaml}" \
+  --risk-config "${RISK_CONFIG:-configs/risk_policy.example.yaml}" \
+  --strategies-config "${STRATEGIES_CONFIG:-configs/strategies.example.yaml}" \
+  --db-path "${ORDER_DB_PATH:-var/orders.sqlite}"
