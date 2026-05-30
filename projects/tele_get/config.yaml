@@ -1,0 +1,28 @@
+telegram_url: "https://web.telegram.org/k/#-2642938271"
+interval_seconds: 300
+scroll_pages: 3
+max_messages_per_sync: 100
+database_path: "data/telegram.sqlite"
+analysis_max_messages_per_target: 40
+digest_push_times_utc:
+  - "08:00"
+  - "20:00"
+
+targets:
+  - name: "alpha"
+    chat_title: "1% Club - 100x Group"
+    topic_title: "Alpha & Announcements"
+    peer_id: "-2642938271"
+    aliases:
+      - "alpha announcements"
+      - "alpha and announcements"
+      - "alpha&announcements"
+      - "alphaannouncements"
+
+  - name: "degenchannel"
+    chat_title: "1% Club - 100x Group"
+    topic_title: "Degen channel"
+    peer_id: "-2642938271"
+    aliases:
+      - "degenchannel"
+      - "degen channel"

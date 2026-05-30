@@ -1,0 +1,22 @@
+from __future__ import annotations
+
+from pathlib import Path
+from typing import Any
+
+import yaml
+
+
+def load_config(path: str | Path) -> dict[str, Any]:
+    config_path = Path(path)
+    with config_path.open("r", encoding="utf-8") as handle:
+        config = yaml.safe_load(handle)
+    config["_config_dir"] = str(config_path.resolve().parent)
+    return config
+
+
+def resolve_path(config: dict[str, Any], value: str) -> Path:
+    path = Path(value)
+    if path.is_absolute():
+        return path
+    return Path(config["_config_dir"]) / path
+

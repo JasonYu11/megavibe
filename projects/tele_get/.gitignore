@@ -1,0 +1,6 @@
+.env
+profiles/
+data/
+screenshots/
+__pycache__/
+*.pyc
