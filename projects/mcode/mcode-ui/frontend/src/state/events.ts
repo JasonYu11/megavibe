@@ -109,6 +109,7 @@ function itemsFromChronologicalEvents(messages: Message[], events: RunEvent[]): 
   let turnChanges: ChangeReviewItem["changes"] = [];
   let turnReviewStatus: ChangeReviewItem["status"] = "pending";
   let currentTime = Date.now();
+  const renderedContent = new Set<string>();
 
   const sortedEvents = [...events].sort((a, b) => {
     const left = typeof a.seq === "number" ? a.seq : Number.MAX_SAFE_INTEGER;
@@ -235,13 +236,16 @@ function itemsFromChronologicalEvents(messages: Message[], events: RunEvent[]): 
       if (content && toolCalls.length === 0) {
         // 最终回答（无工具调用）— 输出为对话气泡，不进思维链
         flushChain("completed");
-        if (!hasAssistant(items, content)) {
+        const trimmed = content.trim();
+        if (!renderedContent.has(trimmed)) {
+          renderedContent.add(trimmed);
           items.push({ kind: "assistant", id: `a-${idBase}`, text: content });
         }
         finalAnswerSeen = true;
       } else if (content && visibility === "chat") {
         // 有工具调用的思考 — 进思维链
         const firstLine = content.replace(/\n/g, " ").trim();
+        renderedContent.add(firstLine);
         addStep({
           id: `thought-${ensureChain().steps.length}-${idBase}`,
           kind: "thought",
@@ -254,6 +258,7 @@ function itemsFromChronologicalEvents(messages: Message[], events: RunEvent[]): 
       // reasoning 始终进思维链
       if (reasoning && visibility === "chat") {
         const firstLine = reasoning.replace(/\n/g, " ").trim();
+        renderedContent.add(firstLine);
         addStep({
           id: `thought-${ensureChain().steps.length}-${idBase}`,
           kind: "thought",
@@ -412,8 +417,9 @@ function itemsFromChronologicalEvents(messages: Message[], events: RunEvent[]): 
 
     if (event.kind === "turn_completed") {
       flushChain("completed");
-      const answer = String(data.answer || "");
-      if (answer && !finalAnswerSeen && !hasAssistant(items, answer)) {
+      const answer = String(data.answer || "").trim();
+      if (answer && !finalAnswerSeen && !renderedContent.has(answer)) {
+        renderedContent.add(answer);
         items.push({ kind: "assistant", id: `a-${idBase}`, text: answer });
         finalAnswerSeen = true;
       }
@@ -497,8 +503,10 @@ function itemsFromChronologicalEvents(messages: Message[], events: RunEvent[]): 
   flushChain("completed");
 
   for (const message of messages) {
-    if (message.role === "assistant" && message.content && !hasAssistant(items, message.content)) {
-      items.push({ kind: "assistant", id: `m-${seq++}`, text: message.content });
+    const text = (message.content || "").trim();
+    if (message.role === "assistant" && text && !renderedContent.has(text)) {
+      renderedContent.add(text);
+      items.push({ kind: "assistant", id: `m-${seq++}`, text: message.content! });
     }
   }
 

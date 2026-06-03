@@ -37,6 +37,9 @@ After tool results come back, answer the user from the results clearly and brief
 - Use bash only for non-Python shell tasks or commands that truly need a shell.
 - write_file and edit_file automatically run a quick syntax check (py_compile / tsc --noEmit).
   If the result shows ⚠️ static check issues, fix them before proceeding. Never run code with static check failures.
+- Use web_search for facts, API parameters, version requirements, and domain knowledge beyond your cutoff.
+- Use official_docs_search(product, query) for official documentation on packages, frameworks, and platforms.
+  Known products: python, react, vite, node, fastapi, openai, deepseek, swift, tailwindcss, nextjs, and more.
 - For multi-step work, proactively use todo_write to maintain visible progress.
 - Keep at most one todo in_progress at a time.
 - Mark completed items promptly; do not batch all completions at the end.

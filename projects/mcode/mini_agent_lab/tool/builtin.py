@@ -769,6 +769,11 @@ def default_registry(
         registry.add(ReadSkillTool(skill_store))
         registry.add(RunSkillTool(skill_store, skill_runner))
         registry.add(InstallSkillTool(skill_store))
+    # Web search tools (always available, read-only)
+    from mini_agent_lab.tool.web_tools import OfficialDocsSearchTool, WebSearchTool
+
+    registry.add(WebSearchTool())
+    registry.add(OfficialDocsSearchTool())
     return registry
 
 
