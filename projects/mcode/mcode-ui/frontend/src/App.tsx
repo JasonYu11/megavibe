@@ -271,6 +271,7 @@ export default function App() {
     setJobs([]);
     setPendingMessages([]);
     setPollFailures(0);
+    setStreamActive(false);
     setStatus("idle");
   }, [sessionId]);
 
@@ -360,13 +361,7 @@ export default function App() {
     setStatus("creating_session");
     const session = await api.createSession(projectId);
     setSessionId(session.id);
-    setMessages([]);
-    setEvents([]);
-    setSummary({ run_id: session.id, status: "created" });
-    setController(null);
-    setSubagents([]);
-    setApprovals([]);
-    setPendingMessages([]);
+    // sessionId change triggers useEffect to clear all state + bump generation
     const sessionRows = await api.sessions(projectId);
     setSessions(sessionRows);
     setStatus("idle");

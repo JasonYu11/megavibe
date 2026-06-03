@@ -25,7 +25,9 @@ export function ThoughtChainBlock({ chain }: ThoughtChainBlockProps) {
 
   useEffect(() => {
     if (running && chain.startedAt) {
-      timer.current = setInterval(() => setElapsed(Date.now() - chain.startedAt!), 200);
+      timer.current = setInterval(() => {
+        if (chain.startedAt) setElapsed(Date.now() - chain.startedAt);
+      }, 200);
     } else {
       if (timer.current) clearInterval(timer.current);
     }
@@ -39,8 +41,9 @@ export function ThoughtChainBlock({ chain }: ThoughtChainBlockProps) {
 
   const toggle = () => { setExpanded((v) => !v); if (!userToggled) setUserToggled(true); };
 
-  const tools = chain.steps.filter((s) => s.kind === "tool_call").length;
-  const thoughts = chain.steps.filter((s) => s.kind === "thought").length;
+  const steps = chain.steps || [];
+  const tools = steps.filter((s) => s.kind === "tool_call").length;
+  const thoughts = steps.filter((s) => s.kind === "thought").length;
   const dur = running ? elapsed
     : chain.completedAt && chain.startedAt ? chain.completedAt - chain.startedAt : undefined;
 
