@@ -1,0 +1,32 @@
+.env
+MEMORY.local.md
+.archives/
+.checkpoints/
+.memory/
+.gitstate/
+.jobs/
+.runs/
+.sessions/
+.subagents/
+.attachments/
+.mcode-ui/
+.mini-agent-ui/
+.playwright-cli/
+.pycache/
+__pycache__/
+*.pyc
+node_modules/
+mcode-ui/frontend/node_modules/
+mcode-ui/.swift-module-cache/
+output-ui-debug-*.png
+bin/
+dist/
+*.log
+*.png
+*.html
+results.json
+# macOS
+.DS_Store
+# IDE
+.vscode/
+.idea/

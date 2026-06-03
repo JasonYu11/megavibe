@@ -1,0 +1,41 @@
+{
+  "provider": {
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-v4-flash",
+    "temperature": 0.2,
+    "timeout_seconds": 30,
+    "max_retries": 4,
+    "proxy_url": "",
+    "trust_env": false
+  },
+  "agent": {
+    "max_steps": 300
+  },
+  "context": {
+    "context_window_tokens": 200000,
+    "compact_ratio": 0.75,
+    "chars_per_token": 3,
+    "recent_keep": 12,
+    "auto_compact": true,
+    "summary_mode": "llm",
+    "target_summary_ratio": 0.1,
+    "min_summary_tokens": 10000,
+    "max_summary_tokens": 20000
+  },
+  "paths": {
+    "session_dir": ".sessions",
+    "run_dir": ".runs",
+    "job_dir": ".jobs",
+    "gitstate_dir": ".gitstate",
+    "checkpoint_dir": ".checkpoints",
+    "archive_dir": ".archives",
+    "memory_dir": ".memory",
+    "subagent_dir": ".subagents",
+    "policy_file": "mcode-policy.json",
+    "skill_custom_dirs": []
+  },
+  "ui": {
+    "language": "zh",
+    "theme": "system"
+  }
+}

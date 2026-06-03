@@ -1,0 +1,250 @@
+{
+  "name": "agent_ui_v1",
+  "description": "Mcode product-level agent + UI benchmark suite",
+  "required_case_count": 13,
+  "cases": [
+    {
+      "id": "A1_plain_conversation",
+      "tier": "p0",
+      "category": "basic",
+      "product_requirement": "普通对话",
+      "prompt": "你是什么模型，只用一句话回答。不要调用工具。",
+      "checks": {
+        "final_answer_required": true,
+        "max_tool_calls": 0,
+        "answer_max_lines": 3,
+        "answer_forbidden_patterns": ["📋", "完整工作回顾", "\\*\\*1\\."],
+        "ui_turn_answer_leaked": false
+      }
+    },
+    {
+      "id": "A2_read_readme_summary",
+      "tier": "p0",
+      "category": "file_read",
+      "product_requirement": "读文件",
+      "setup_files": {
+        "README.md": "# Mcode Benchmark\n\n- 支持项目会话。\n- 支持工具调用。\n- 支持文件审核。\n"
+      },
+      "prompt": "读取 README.md 并总结 3 点。必须使用 read_file。最终回答不超过 8 行。",
+      "checks": {
+        "final_answer_required": true,
+        "required_tools": ["read_file"],
+        "answer_max_lines": 8,
+        "ui_turn_answer_leaked": false
+      }
+    },
+    {
+      "id": "B0_python_script_run",
+      "tier": "p0",
+      "category": "python",
+      "product_requirement": "创建并运行 Python 脚本",
+      "prompt": "创建 calc_square.py，计算 7 的平方并把 {\"square\": 49} 写入 calc_result.json。必须使用 write_file 创建脚本，并使用 python_run 运行验证。最后简短说明结果。",
+      "checks": {
+        "final_answer_required": true,
+        "required_tools": ["write_file", "python_run"],
+        "forbidden_tools": ["bash"],
+        "required_files": ["calc_square.py"],
+        "result_file": "calc_result.json",
+        "result_equals": {
+          "square": 49
+        },
+        "required_events": ["preview", "checkpoint_saved", "workspace_changes_detected"],
+        "required_change_sources": ["write_file", "python_run"],
+        "ui_turn_answer_leaked": false
+      }
+    },
+    {
+      "id": "B1_write_file_review",
+      "tier": "p0",
+      "category": "file_write",
+      "product_requirement": "写文件",
+      "prompt": "创建 hello.py，打印 hello mcode。不要用 bash。最后简短说明文件名。",
+      "checks": {
+        "final_answer_required": true,
+        "required_tools": ["write_file"],
+        "forbidden_tools": ["bash"],
+        "required_files": ["hello.py"],
+        "file_contains": {
+          "hello.py": ["hello mcode"]
+        },
+        "required_events": ["preview", "checkpoint_saved"],
+        "required_change_sources": ["write_file"],
+        "ui_turn_answer_leaked": false
+      }
+    },
+    {
+      "id": "B2_modify_file_diff",
+      "tier": "p0",
+      "category": "file_edit",
+      "product_requirement": "修改文件",
+      "setup_files": {
+        "hello.py": "print('hello mcode')\n"
+      },
+      "prompt": "把 hello.py 的输出改成 hello codex style。必须使用 edit_file，不要重写整个文件。最后简短说明。",
+      "checks": {
+        "final_answer_required": true,
+        "required_tools": ["edit_file"],
+        "required_files": ["hello.py"],
+        "file_contains": {
+          "hello.py": ["hello codex style"]
+        },
+        "file_not_contains": {
+          "hello.py": ["hello mcode"]
+        },
+        "required_events": ["preview", "checkpoint_saved"],
+        "required_change_sources": ["edit_file"],
+        "ui_turn_answer_leaked": false
+      }
+    },
+    {
+      "id": "C1_lfm_matched_filter",
+      "tier": "p1",
+      "category": "simulation",
+      "product_requirement": "LFM 匹配滤波仿真",
+      "prompt": "仿真一个 LFM 匹配滤波过程，保存图像并返回关键指标。参数你来设置。",
+      "external_runner": "scripts/live_agent_simulation_test.py",
+      "notes": "The dedicated live simulation runner validates LFM and beamforming with physical thresholds, python_run usage, result JSON, generated scripts, and saved PNG images."
+    },
+    {
+      "id": "C2_beamforming",
+      "tier": "p1",
+      "category": "simulation",
+      "product_requirement": "波束形成仿真",
+      "prompt": "写一个 ULA 波束形成仿真，保存方向图。参数你来设置。",
+      "external_runner": "scripts/live_agent_simulation_test.py",
+      "notes": "The dedicated live simulation runner validates LFM and beamforming with physical thresholds, python_run usage, result JSON, generated scripts, and saved PNG images."
+    },
+    {
+      "id": "D1_bug_fix_python",
+      "tier": "p0",
+      "category": "engineering",
+      "product_requirement": "Bug 修复",
+      "setup_files": {
+        "buggy_average.py": "import json\n\n\ndef average(values):\n    return sum(values) / len(values) + 1\n\n\nresult = {\"average\": average([2, 4, 6])}\nPath = __import__('pathlib').Path\nPath('bug_result.json').write_text(json.dumps(result), encoding='utf-8')\nprint(result)\n"
+      },
+      "prompt": "运行 buggy_average.py 复现问题，修复 average([2,4,6]) 应该等于 4 的 bug，再运行验证。必须使用 python_run 运行脚本，修改文件用 edit_file，最后简短说明验证结果。",
+      "checks": {
+        "final_answer_required": true,
+        "required_tools": ["python_run", "edit_file"],
+        "forbidden_tools": ["bash"],
+        "result_file": "bug_result.json",
+        "result_equals": {
+          "average": 4
+        },
+        "file_not_contains": {
+          "buggy_average.py": ["+ 1"]
+        },
+        "required_change_sources": ["edit_file"],
+        "ui_turn_answer_leaked": false
+      }
+    },
+    {
+      "id": "D2_bash_approval_flow",
+      "tier": "p0",
+      "category": "approval",
+      "product_requirement": "权限审批",
+      "prompt": "为了验证审批流程，请使用 bash 执行 `echo approval-ok > approval_result.txt`。审批通过后读取 approval_result.txt，并简短说明结果。",
+      "checks": {
+        "final_answer_required": true,
+        "required_tools": ["bash", "read_file"],
+        "required_events": ["test_approval_auto_allowed", "safety_approved"],
+        "required_files": ["approval_result.txt"],
+        "file_contains": {
+          "approval_result.txt": ["approval-ok"]
+        },
+        "ui_turn_answer_leaked": false
+      }
+    },
+    {
+      "id": "E1_attachment_summary",
+      "tier": "p0",
+      "category": "attachment",
+      "product_requirement": "附件处理",
+      "attachments": [
+        {
+          "name": "experiment_notes.md",
+          "mime_type": "text/markdown",
+          "content": "# Experiment Notes\n\n- Dataset: synthetic sonar.\n- Best metric: 0.91 F1.\n- Risk: small validation split.\n"
+        }
+      ],
+      "prompt": "读取附件 experiment_notes.md，把内容总结成 3 条要点并写入 attachment_summary.md。必须先用 list_attachments，再用 read_attachment，不要用 bash。最后简短说明。",
+      "checks": {
+        "final_answer_required": true,
+        "required_tools": ["list_attachments", "read_attachment", "write_file"],
+        "forbidden_tools": ["bash"],
+        "required_files": ["attachment_summary.md"],
+        "file_contains": {
+          "attachment_summary.md": ["synthetic sonar", "0.91", "validation"]
+        },
+        "required_events": ["preview", "checkpoint_saved"],
+        "required_change_sources": ["write_file"],
+        "ui_turn_answer_leaked": false
+      }
+    },
+    {
+      "id": "E2_plan_mode_execute",
+      "tier": "p1",
+      "category": "plan",
+      "product_requirement": "Plan 执行",
+      "execution_mode": "plan_then_execute",
+      "setup_files": {
+        "todo_source.txt": "alpha\nbeta\n"
+      },
+      "prompt": "制定计划，然后在计划获批后读取 todo_source.txt，并创建 plan_result.txt，内容包含 alpha 和 beta。执行阶段必须使用 todo_write 跟踪进度。",
+      "checks": {
+        "final_answer_required": true,
+        "required_tools": ["read_file", "write_file", "todo_write"],
+        "required_files": ["plan_result.txt"],
+        "file_contains": {
+          "plan_result.txt": ["alpha", "beta"]
+        },
+        "required_events": ["plan_pending", "todo_updated", "preview", "checkpoint_saved"],
+        "required_change_sources": ["write_file"],
+        "ui_turn_answer_leaked": false
+      }
+    },
+    {
+      "id": "E3_long_output_compaction",
+      "tier": "p1",
+      "category": "output",
+      "product_requirement": "长输出",
+      "prompt": "使用 python_run 运行一段 Python，打印 80 行 line-000 到 line-079，并生成 long_output_done.txt。最终回答不要粘贴完整输出，只说明是否完成。",
+      "checks": {
+        "final_answer_required": true,
+        "required_tools": ["python_run"],
+        "forbidden_tools": ["bash"],
+        "required_files": ["long_output_done.txt"],
+        "file_contains": {
+          "long_output_done.txt": ["done"]
+        },
+        "required_events": ["command_output", "workspace_changes_detected"],
+        "max_command_output_events": 5,
+        "max_command_output_chars": 4000,
+        "answer_max_lines": 6,
+        "ui_turn_answer_leaked": false
+      }
+    },
+    {
+      "id": "E4_failed_tool_recovery",
+      "tier": "p1",
+      "category": "recovery",
+      "product_requirement": "失败恢复",
+      "setup_files": {
+        "README.md": "# Recovery Case\n\nFallback value: stable-result\n"
+      },
+      "prompt": "先尝试读取 missing.txt 来模拟失败；如果失败，不要卡住，改为读取 README.md，并把 fallback 值写入 recovery_result.txt。最后简短说明。",
+      "checks": {
+        "final_answer_required": true,
+        "required_tools": ["read_file", "write_file"],
+        "required_failed_tools": ["read_file"],
+        "required_files": ["recovery_result.txt"],
+        "file_contains": {
+          "recovery_result.txt": ["stable-result"]
+        },
+        "required_events": ["tool_result", "preview", "checkpoint_saved"],
+        "required_change_sources": ["write_file"],
+        "ui_turn_answer_leaked": false
+      }
+    }
+  ]
+}

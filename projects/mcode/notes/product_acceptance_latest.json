@@ -1,0 +1,226 @@
+{
+  "name": "mcode-product-acceptance",
+  "root": "/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab",
+  "started_at": 1780408443.30201,
+  "elapsed_seconds": 16.05,
+  "total": 15,
+  "passed": 10,
+  "failed": 5,
+  "results": [
+    {
+      "id": "backend_ui_helpers",
+      "description": "Project/session/event/change-review backend helpers",
+      "command": [
+        "python3",
+        "tests/test_ui_backend.py"
+      ],
+      "cwd": "/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab",
+      "passed": false,
+      "exit_code": 1,
+      "elapsed_seconds": 0.12,
+      "output_tail": "ule>\n    from .applications import FastAPI as FastAPI\n  File \"/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/fastapi/applications.py\", line 6, in <module>\n    from fastapi import routing\n  File \"/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/fastapi/routing.py\", line 35, in <module>\n    from fastapi import params\n  File \"/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/fastapi/params.py\", line 7, in <module>\n    from fastapi.exceptions import FastAPIDeprecationWarning\n  File \"/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/fastapi/exceptions.py\", line 5, in <module>\n    from pydantic import BaseModel, create_model\n  File \"/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/pydantic/__init__.py\", line 5, in <module>\n    from ._migration import getattr_migration\n  File \"/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/pydantic/_migration.py\", line 4, in <module>\n    from pydantic.warnings import PydanticDeprecatedSince20\n  File \"/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/pydantic/warnings.py\", line 5, in <module>\n    from .version import version_short\n  File \"/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/pydantic/version.py\", line 7, in <module>\n    from pydantic_core import __version__ as __pydantic_core_version__\n  File \"/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/pydantic_core/__init__.py\", line 8, in <module>\n    from ._pydantic_core import (\n    ...<21 lines>...\n    )\nImportError: dlopen(/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/pydantic_core/_pydantic_core.cpython-313-darwin.so, 0x0002): tried: '/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/pydantic_core/_pydantic_core.cpython-313-darwin.so' (code signature in <286DA07F-2369-359E-AFA3-E9A7DBC06BC7> '/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/pydantic_core/_pydantic_core.cpython-313-darwin.so' not valid for use in process: mapping process and mapped file (non-platform) have different Team IDs), '/System/Volumes/Preboot/Cryptexes/OS/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/pydantic_core/_pydantic_core.cpython-313-darwin.so' (no such file), '/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/pydantic_core/_pydantic_core.cpython-313-darwin.so' (code signature in <286DA07F-2369-359E-AFA3-E9A7DBC06BC7> '/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/pydantic_core/_pydantic_core.cpython-313-darwin.so' not valid for use in process: mapping process and mapped file (non-platform) have different Team IDs)\n"
+    },
+    {
+      "id": "settings_api",
+      "description": "Settings and app-local API key storage endpoints",
+      "command": [
+        "python3",
+        "mcode-ui/backend/test_settings_api.py"
+      ],
+      "cwd": "/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab",
+      "passed": false,
+      "exit_code": 1,
+      "elapsed_seconds": 0.06,
+      "output_tail": "ule>\n    from .applications import FastAPI as FastAPI\n  File \"/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/fastapi/applications.py\", line 6, in <module>\n    from fastapi import routing\n  File \"/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/fastapi/routing.py\", line 35, in <module>\n    from fastapi import params\n  File \"/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/fastapi/params.py\", line 7, in <module>\n    from fastapi.exceptions import FastAPIDeprecationWarning\n  File \"/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/fastapi/exceptions.py\", line 5, in <module>\n    from pydantic import BaseModel, create_model\n  File \"/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/pydantic/__init__.py\", line 5, in <module>\n    from ._migration import getattr_migration\n  File \"/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/pydantic/_migration.py\", line 4, in <module>\n    from pydantic.warnings import PydanticDeprecatedSince20\n  File \"/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/pydantic/warnings.py\", line 5, in <module>\n    from .version import version_short\n  File \"/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/pydantic/version.py\", line 7, in <module>\n    from pydantic_core import __version__ as __pydantic_core_version__\n  File \"/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/pydantic_core/__init__.py\", line 8, in <module>\n    from ._pydantic_core import (\n    ...<21 lines>...\n    )\nImportError: dlopen(/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/pydantic_core/_pydantic_core.cpython-313-darwin.so, 0x0002): tried: '/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/pydantic_core/_pydantic_core.cpython-313-darwin.so' (code signature in <286DA07F-2369-359E-AFA3-E9A7DBC06BC7> '/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/pydantic_core/_pydantic_core.cpython-313-darwin.so' not valid for use in process: mapping process and mapped file (non-platform) have different Team IDs), '/System/Volumes/Preboot/Cryptexes/OS/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/pydantic_core/_pydantic_core.cpython-313-darwin.so' (no such file), '/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/pydantic_core/_pydantic_core.cpython-313-darwin.so' (code signature in <286DA07F-2369-359E-AFA3-E9A7DBC06BC7> '/Users/macbot/.workbuddy/binaries/python/versions/3.13.12/lib/python3.13/site-packages/pydantic_core/_pydantic_core.cpython-313-darwin.so' not valid for use in process: mapping process and mapped file (non-platform) have different Team IDs)\n"
+    },
+    {
+      "id": "python_tool_events",
+      "description": "python_run execution, headless env, and workspace change detection",
+      "command": [
+        "python3",
+        "tests/test_python_run_tool.py"
+      ],
+      "cwd": "/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab",
+      "passed": true,
+      "exit_code": 0,
+      "elapsed_seconds": 1.27,
+      "output_tail": "  OK: python_run returns stdout\n  OK: python_run returns structured footer\n  OK: python_run records command_started\n  OK: python_run records command_output\n  OK: summary tracks python command kind\n  OK: python_run forces matplotlib headless backend\n  OK: python_run forces Qt offscreen mode\n  OK: python_run succeeds while creating a file\n  OK: python_run detects generated file path\n  OK: python_run marks generated file as create\n  OK: command-generated change is marked non-recoverable\n  OK: summary tracks command-generated file change\n  OK: python_run executes project-relative files\n  OK: python_run rejects escaped file paths\n  OK: background python returns python job id\n  OK: wait returns python job output\n  OK: python background log exists\nAll python_run tests passed.\n"
+    },
+    {
+      "id": "bash_tool_events",
+      "description": "bash foreground/background events and workspace change detection",
+      "command": [
+        "python3",
+        "tests/test_bash_events.py"
+      ],
+      "cwd": "/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab",
+      "passed": true,
+      "exit_code": 0,
+      "elapsed_seconds": 3.16,
+      "output_tail": "  OK: foreground bash returns command output\n  OK: foreground bash returns structured footer\n  OK: command_started event is recorded\n  OK: command_output event is recorded\n  OK: command_finished event is recorded\n  OK: summary tracks command exit code\n  OK: summary clears current command\n  OK: bash detects generated file path\n  OK: bash marks generated file as create\n  OK: bash change includes diff preview\n  OK: background bash returns job id\n  OK: wait returns background output\n  OK: background job log file exists\n  OK: background job log contains output\n  OK: job_started event is recorded\n  OK: job_output event is recorded\n  OK: job_finished event is recorded\n  OK: background job records workspace changes\n  OK: background job detects generated file\n  OK: summary tracks completed job\n  OK: summary tracks job exit code\nAll bash event tests passed.\n"
+    },
+    {
+      "id": "run_recorder",
+      "description": "RunRecorder event and summary persistence",
+      "command": [
+        "python3",
+        "tests/test_run_recorder.py"
+      ],
+      "cwd": "/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab",
+      "passed": true,
+      "exit_code": 0,
+      "elapsed_seconds": 0.06,
+      "output_tail": "  OK: events jsonl exists\n  OK: summary json exists\n  OK: six events persisted\n  OK: first event seq is 1\n  OK: last event is turn_completed\n  OK: run id is sanitized\n  OK: session id is preserved\n  OK: summary status is completed\n  OK: tool call count is tracked\n  OK: tool result count is tracked\n  OK: todo progress is tracked\n  OK: file preview is tracked\n  OK: file preview source is tracked\n  OK: final answer is tracked\n  OK: recent events are included\n  OK: pending plan keeps summary awaiting decision\n  OK: pending plan text is stored\n  OK: first pending plan is revision 1\n  OK: pending plan stores parsed todo count\n  OK: pending plan seeds first todo\n  OK: refined pending plan increments revision\n  OK: cancelled plan returns summary to completed\n  OK: cancelled plan status is stored\n  OK: cancelled plan keeps latest revision\n  OK: record downstream receives persisted seq records\n  OK: record downstream keeps event kind\n  OK: trace status updates summary phase\nAll run recorder tests passed.\n"
+    },
+    {
+      "id": "tool_outcomes",
+      "description": "Tool success/error/block/truncation outcomes",
+      "command": [
+        "python3",
+        "tests/test_tool_outcomes.py"
+      ],
+      "cwd": "/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab",
+      "passed": false,
+      "exit_code": 1,
+      "elapsed_seconds": 0.03,
+      "output_tail": "Traceback (most recent call last):\n  File \"/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab/tests/test_tool_outcomes.py\", line 16, in <module>\n    from mini_agent_lab.agent import Session\n  File \"/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab/mini_agent_lab/agent/__init__.py\", line 1, in <module>\n    from .session import Session\n  File \"/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab/mini_agent_lab/agent/session.py\", line 3, in <module>\n    from mini_agent_lab.provider import Message\n  File \"/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab/mini_agent_lab/provider/__init__.py\", line 1, in <module>\n    from .deepseek import DeepSeekProvider\n  File \"/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab/mini_agent_lab/provider/deepseek.py\", line 9, in <module>\n    import httpx\nModuleNotFoundError: No module named 'httpx'\n"
+    },
+    {
+      "id": "product_benchmark_spec",
+      "description": "Product benchmark suite has the required agent regression cases",
+      "command": [
+        "python3",
+        "scripts/validate_product_benchmarks.py"
+      ],
+      "cwd": "/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab",
+      "passed": true,
+      "exit_code": 0,
+      "elapsed_seconds": 0.02,
+      "output_tail": "Product benchmark spec OK: 13 cases\n"
+    },
+    {
+      "id": "product_benchmark_dry_run",
+      "description": "Benchmark dry-run produces a JSON/Markdown case matrix without model API calls",
+      "command": [
+        "python3",
+        "scripts/run_product_benchmark_suite.py",
+        "--dry-run"
+      ],
+      "cwd": "/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab",
+      "passed": false,
+      "exit_code": 1,
+      "elapsed_seconds": 0.03,
+      "output_tail": "Traceback (most recent call last):\n  File \"/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab/scripts/run_product_benchmark_suite.py\", line 16, in <module>\n    from scripts.run_agent_ui_benchmarks import build_spec_acceptance, render_markdown_report\n  File \"/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab/scripts/run_agent_ui_benchmarks.py\", line 19, in <module>\n    from scripts.agent_chat import SYSTEM_PROMPT\n  File \"/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab/scripts/agent_chat.py\", line 11, in <module>\n    from mini_agent_lab.agent import Session\n  File \"/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab/mini_agent_lab/agent/__init__.py\", line 1, in <module>\n    from .session import Session\n  File \"/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab/mini_agent_lab/agent/session.py\", line 3, in <module>\n    from mini_agent_lab.provider import Message\n  File \"/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab/mini_agent_lab/provider/__init__.py\", line 1, in <module>\n    from .deepseek import DeepSeekProvider\n  File \"/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab/mini_agent_lab/provider/deepseek.py\", line 9, in <module>\n    import httpx\nModuleNotFoundError: No module named 'httpx'\n"
+    },
+    {
+      "id": "frontend_layout_dock_tests",
+      "description": "Workbench layout computation and dock pane interaction tests",
+      "command": [
+        "npm",
+        "run",
+        "test",
+        "--",
+        "layoutState.test.ts",
+        "WorkspaceDock.test.tsx"
+      ],
+      "cwd": "/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab/mcode-ui/frontend",
+      "passed": true,
+      "exit_code": 0,
+      "elapsed_seconds": 1.06,
+      "output_tail": "\n> mcode-ui@0.1.0 test\n> vitest run layoutState.test.ts WorkspaceDock.test.tsx\n\n\n RUN  v2.1.9 /Users/macbot/Documents/deepseek_agent_research/mini-agent-lab/mcode-ui/frontend\n\n ✓ src/layoutState.test.ts (7 tests) 2ms\n ✓ src/components/WorkspaceDock.test.tsx (5 tests) 111ms\n\n Test Files  2 passed (2)\n      Tests  12 passed (12)\n   Start at  21:54:08\n   Duration  743ms (transform 90ms, setup 78ms, collect 172ms, tests 113ms, environment 525ms, prepare 67ms)\n\n"
+    },
+    {
+      "id": "frontend_tests",
+      "description": "React UI component and event mapping tests",
+      "command": [
+        "npm",
+        "run",
+        "test",
+        "--",
+        "--run"
+      ],
+      "cwd": "/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab/mcode-ui/frontend",
+      "passed": false,
+      "exit_code": 1,
+      "elapsed_seconds": 1.85,
+      "output_tail": "orkspace.test.tsx (18 tests) 403ms\n ✓ src/components/EventTimeline.test.tsx (4 tests) 27ms\n ✓ src/components/TerminalPanel.test.tsx (2 tests) 41ms\n ✓ src/components/FileTreePanel.test.tsx (3 tests) 145ms\n ✓ src/components/TestDock.test.tsx (2 tests) 18ms\n ✓ src/components/ProjectPickerDialog.test.tsx (2 tests) 23ms\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  src/state/events.test.ts > itemsFromMessagesAndEvents > orders a turn as user, folded thinking process, then assistant answer\nAssertionError: expected [ 'user', 'thought_chain', …(3) ] to deeply equal [ 'user', 'thinking', 'assistant' ]\n\n- Expected\n+ Received\n\n  Array [\n    \"user\",\n-   \"thinking\",\n+   \"thought_chain\",\n    \"assistant\",\n+   \"thought_chain\",\n+   \"thought_chain\",\n  ]\n\n ❯ src/state/events.test.ts:77:44\n     75|     ]);\n     76| \n     77|     expect(items.map((item) => item.kind)).toEqual([\"user\", \"thinking\"…\n       |                                            ^\n     78|     expect(items[0]).toMatchObject({ kind: \"user\", text: \"读取 README\"…\n     79|     expect(items[1]).toMatchObject({ kind: \"thinking\", status: \"done\" …\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯\n\n FAIL  src/state/events.test.ts > itemsFromMessagesAndEvents > keeps command output out of the folded thinking process\nAssertionError: expected undefined to be truthy\n\n- Expected: \ntrue\n\n+ Received: \nundefined\n\n ❯ src/state/events.test.ts:143:22\n    141|     ]);\n    142|     const thinking = items.find((item) => item.kind === \"thinking\");\n    143|     expect(thinking).toBeTruthy();\n       |                      ^\n    144|     expect((thinking as Extract<(typeof items)[number], { kind: \"think…\n    145|   });\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯\n\n FAIL  src/state/events.test.ts > itemsFromMessagesAndEvents > renders approval events as a compact chat item inside the thinking group\nTypeError: Cannot read properties of undefined (reading 'items')\n ❯ src/state/events.test.ts:164:21\n    162| \n    163|     const thinking = items.find((item) => item.kind === \"thinking\") as…\n    164|     expect(thinking.items).toMatchObject([\n       |                     ^\n    165|       {\n    166|         kind: \"approval\",\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯\n\n FAIL  src/state/events.test.ts > itemsFromMessagesAndEvents > enriches command tools with exit code, duration, runtime, and output preview\nTypeError: Cannot read properties of undefined (reading 'items')\n ❯ src/state/events.test.ts:193:86\n    191|     ]);\n    192|     const thinking = items.find((item) => item.kind === \"thinking\");\n    193|     const tool = (thinking as Extract<(typeof items)[number], { kind: …\n       |                                                                                      ^\n    194|     expect(tool).toMatchObject({\n    195|       kind: \"tool\",\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯\n\n Test Files  1 failed | 14 passed (15)\n      Tests  4 failed | 75 passed (79)\n   Start at  21:54:09\n   Duration  1.56s (transform 696ms, setup 655ms, collect 2.10s, tests 1.44s, environment 5.15s, prepare 796ms)\n\n"
+    },
+    {
+      "id": "frontend_build",
+      "description": "TypeScript typecheck and Vite production build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "cwd": "/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab/mcode-ui/frontend",
+      "passed": true,
+      "exit_code": 0,
+      "elapsed_seconds": 2.29,
+      "output_tail": "\n> mcode-ui@0.1.0 build\n> tsc --noEmit && vite build\n\nvite v6.4.3 building for production...\ntransforming...\n✓ 1609 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.46 kB │ gzip:  0.29 kB\ndist/assets/index-DRGS22sa.css   45.57 kB │ gzip:  8.38 kB\ndist/assets/index-BFVpuEjH.js   274.25 kB │ gzip: 82.07 kB\n✓ built in 673ms\n"
+    },
+    {
+      "id": "macos_app_build",
+      "description": "Build Mcode.app with bundled frontend/backend resources",
+      "command": [
+        "mcode-ui/macos/build_app.sh"
+      ],
+      "cwd": "/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab",
+      "passed": true,
+      "exit_code": 0,
+      "elapsed_seconds": 6.05,
+      "output_tail": "\n> mcode-ui@0.1.0 build\n> tsc --noEmit && vite build\n\nvite v6.4.3 building for production...\ntransforming...\n✓ 1609 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.46 kB │ gzip:  0.29 kB\ndist/assets/index-DRGS22sa.css   45.57 kB │ gzip:  8.38 kB\ndist/assets/index-BFVpuEjH.js   274.25 kB │ gzip: 82.07 kB\n✓ built in 658ms\n/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab/mcode-ui/dist/Mcode.app: replacing existing signature\n/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab/mcode-ui/dist/Mcode.app\n"
+    },
+    {
+      "id": "macos_plist_lint",
+      "description": "Validate Mcode.app Info.plist",
+      "command": [
+        "plutil",
+        "-lint",
+        "mcode-ui/dist/Mcode.app/Contents/Info.plist"
+      ],
+      "cwd": "/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab",
+      "passed": true,
+      "exit_code": 0,
+      "elapsed_seconds": 0.0,
+      "output_tail": "mcode-ui/dist/Mcode.app/Contents/Info.plist: OK\n"
+    },
+    {
+      "id": "macos_codesign_verify",
+      "description": "Verify ad-hoc signed Mcode.app bundle",
+      "command": [
+        "codesign",
+        "--verify",
+        "--deep",
+        "--strict",
+        "mcode-ui/dist/Mcode.app"
+      ],
+      "cwd": "/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab",
+      "passed": true,
+      "exit_code": 0,
+      "elapsed_seconds": 0.01,
+      "output_tail": ""
+    },
+    {
+      "id": "python_compile",
+      "description": "Python syntax check for backend and core agent modules",
+      "command": [
+        "python3",
+        "-m",
+        "compileall",
+        "mini_agent_lab",
+        "mcode-ui/backend",
+        "scripts/agent_chat.py",
+        "scripts/run_agent_ui_benchmarks.py",
+        "scripts/validate_product_benchmarks.py",
+        "scripts/run_product_benchmark_suite.py",
+        "scripts/live_agent_simulation_test.py"
+      ],
+      "cwd": "/Users/macbot/Documents/deepseek_agent_research/mini-agent-lab",
+      "passed": true,
+      "exit_code": 0,
+      "elapsed_seconds": 0.04,
+      "output_tail": "Listing 'mini_agent_lab'...\nListing 'mini_agent_lab/agent'...\nListing 'mini_agent_lab/provider'...\nCompiling 'mini_agent_lab/run_recorder.py'...\nListing 'mini_agent_lab/tool'...\nListing 'mcode-ui/backend'...\n"
+    }
+  ]
+}

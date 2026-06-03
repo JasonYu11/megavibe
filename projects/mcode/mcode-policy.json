@@ -1,0 +1,88 @@
+{
+  "read_only_default": "allow",
+  "unknown_write_default": "ask",
+  "workspace_root": ".",
+  "tool_overrides": {
+    "echo": "allow",
+    "read_file": "allow",
+    "ls": "allow",
+    "glob": "allow",
+    "grep": "allow",
+    "bash_output": "allow",
+    "wait": "allow",
+    "git_status": "allow",
+    "git_diff": "allow",
+    "git_baseline": "allow",
+    "git_classify_changes": "allow",
+    "todo_write": "allow",
+    "list_memory": "allow",
+    "remember": "allow"
+  },
+  "write_tools": [
+    "write_file",
+    "edit_file"
+  ],
+  "write_policy": {
+    "inside_workspace": "allow",
+    "outside_workspace": "ask",
+    "protected": "deny"
+  },
+  "protected_write_prefixes": [
+    "/etc",
+    "/bin",
+    "/sbin",
+    "/usr/bin",
+    "/usr/sbin",
+    "/System",
+    "/Library",
+    "/private/etc"
+  ],
+  "protected_write_exact": [
+    "/",
+    "~"
+  ],
+  "bash_policy": {
+    "default": "auto_review",
+    "auto_allow_patterns": [
+      {"pattern": "^(ls|cat|echo|pwd|which|whoami|uname|date|env|printenv)\\b", "reason": "read-only"},
+      {"pattern": "^(head|tail|wc|sort|uniq|cut|tr|awk|sed)\\b", "reason": "text processing"},
+      {"pattern": "^(grep|rg|find)\\s", "reason": "searching files"},
+      {"pattern": "^git\\s+(status|diff|log|branch|show|stash\\s+list|remote\\s+-v)\\b", "reason": "git read-only"},
+      {"pattern": "^(mkdir|touch|cp|mv|ln)\\s", "reason": "safe file ops"},
+      {"pattern": "^(python3?|node)\\s", "reason": "runtime execution"},
+      {"pattern": "^(npm|npx|yarn|pnpm)\\s+(test|run|build|lint|dev|start|typecheck)", "reason": "dev scripts"},
+      {"pattern": "^(pip3?|npm)\\s+install", "reason": "package install"},
+      {"pattern": "^(curl|wget)\\s", "reason": "network fetch"},
+      {"pattern": "^(pgrep|ps|top|df|du|free|uptime)\\b", "reason": "system info"},
+      {"pattern": "^(open|code)\\s", "reason": "open app"}
+    ],
+    "escalate_patterns": [
+      {"pattern": "\\brm\\s+-[^\\n;]*r[^\\n;]*f\\s+[/~]", "reason": "递归强制删除系统/用户目录"},
+      {"pattern": "\\bsudo\\b", "reason": "sudo 提权命令"},
+      {"pattern": "\\b(chmod|chown)\\s+-[^\\n;]*[Rr]\\b", "reason": "递归权限修改"},
+      {"pattern": "\\b(mkfs|dd\\s+if=|fdisk|shutdown|reboot|halt|poweroff)\\b", "reason": "系统级危险命令"},
+      {"pattern": "git\\s+push\\s+.*--force", "reason": "强制推送"},
+      {"pattern": "\\|\\s*(ba)?sh\\b", "reason": "管道到 shell"},
+      {"pattern": "\\beval\\s", "reason": "eval 执行"},
+      {"pattern": "curl.*\\|\\s*(ba)?sh", "reason": "curl 管道到 shell"}
+    ]
+  },
+  "auto_review": {
+    "enabled": true,
+    "model": "deepseek-chat",
+    "temperature": 0.0,
+    "skip_tools": [],
+    "always_escalate": [
+      "bash(git push*)",
+      "bash(sudo*)",
+      "bash(rm -rf*)"
+    ],
+    "strictness": {
+      "bash": "normal",
+      "write_file": "low",
+      "edit_file": "low",
+      "git_commit": "normal",
+      "python_run": "normal"
+    }
+  }
+}

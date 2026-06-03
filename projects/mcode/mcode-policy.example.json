@@ -1,0 +1,111 @@
+{
+  "read_only_default": "allow",
+  "unknown_write_default": "ask",
+  "workspace_root": ".",
+  "tool_overrides": {
+    "echo": "allow",
+    "read_file": "allow",
+    "ls": "allow",
+    "glob": "allow",
+    "grep": "allow",
+    "bash_output": "allow",
+    "wait": "allow",
+    "git_status": "allow",
+    "git_diff": "allow",
+    "git_baseline": "allow",
+    "git_classify_changes": "allow",
+    "todo_write": "allow",
+    "list_memory": "allow",
+    "remember": "allow"
+  },
+  "write_tools": [
+    "write_file",
+    "edit_file"
+  ],
+  "write_policy": {
+    "inside_workspace": "allow",
+    "outside_workspace": "ask",
+    "protected": "deny"
+  },
+  "protected_write_prefixes": [
+    "/etc",
+    "/bin",
+    "/sbin",
+    "/usr/bin",
+    "/usr/sbin",
+    "/System",
+    "/Library",
+    "/private/etc"
+  ],
+  "protected_write_exact": [
+    "/",
+    "~"
+  ],
+  "bash_policy": {
+    "default": "ask",
+    "risk_patterns": [
+      {
+        "pattern": "\\brm\\s+-[^\\n;]*r[^\\n;]*f\\s+/",
+        "reason": "high risk: recursive force delete from root",
+        "decision": "ask"
+      },
+      {
+        "pattern": "\\brm\\s+-[^\\n;]*r[^\\n;]*f\\s+~",
+        "reason": "high risk: recursive force delete from home",
+        "decision": "ask"
+      },
+      {
+        "pattern": "\\bsudo\\b",
+        "reason": "high risk: sudo command",
+        "decision": "ask"
+      },
+      {
+        "pattern": "\\bchmod\\s+-r\\b",
+        "reason": "high risk: recursive chmod",
+        "decision": "ask"
+      },
+      {
+        "pattern": "\\bchown\\s+-r\\b",
+        "reason": "high risk: recursive chown",
+        "decision": "ask"
+      },
+      {
+        "pattern": "\\bmkfs\\b",
+        "reason": "high risk: filesystem formatting command",
+        "decision": "ask"
+      },
+      {
+        "pattern": "\\bdd\\s+if=",
+        "reason": "high risk: raw disk copy command",
+        "decision": "ask"
+      },
+      {
+        "pattern": "\\bshutdown\\b",
+        "reason": "high risk: shutdown command",
+        "decision": "ask"
+      },
+      {
+        "pattern": "\\breboot\\b",
+        "reason": "high risk: reboot command",
+        "decision": "ask"
+      }
+    ]
+  },
+  "auto_review": {
+    "enabled": true,
+    "model": "deepseek-chat",
+    "temperature": 0.0,
+    "skip_tools": [],
+    "always_escalate": [
+      "bash(git push*)",
+      "bash(sudo*)"
+    ],
+    "strictness": {
+      "bash": "high",
+      "write_file": "normal",
+      "edit_file": "normal",
+      "git_commit": "normal",
+      "python_run": "high"
+    }
+  }
+}
